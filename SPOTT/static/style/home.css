@@ -1,0 +1,50 @@
+body{
+    scrollbar-width: none;
+    background-color: #f2fff8;
+}
+.row{
+    margin-left: 20px;
+    color: #fff;
+    
+}
+.posters{
+    display: flex;
+    padding: 20px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  scrollbar-width: none; 
+    
+
+} 
+.posters::-webkit-scrollbar{
+    display: none;
+}
+.poster{
+    max-height: 250px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    
+}
+.smallPoster{
+    max-height: 150px;
+    margin-right: 10px;
+    cursor: pointer;
+
+}
+.poster:hover{
+    transform: scale(1.05);
+}
+.smallPoster:hover{
+    transform: scale(1.1);
+}
+
+h1{
+color: #65c58d;
+}
+h2{
+    color: #008002;
+}
+section{
+    background-color:#f2fff8;
+}

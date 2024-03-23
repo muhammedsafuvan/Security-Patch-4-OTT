@@ -1,0 +1,22 @@
+section{
+    background-color: #f2fff8;
+}
+.video{
+    align-items: center;
+    height: 425px;
+    margin: auto;
+  width: 80%;
+  padding: 10px;
+}
+
+iframe{
+    border-radius: 25px;
+}
+h2,h4{
+    color: #008002;
+    margin-left: 10rem;
+    padding: auto;
+}
+.title{
+    margin: 20px;
+}

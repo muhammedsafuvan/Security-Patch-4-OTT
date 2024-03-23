@@ -1,0 +1,127 @@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'style/play.css' %}">
+<link rel="stylesheet" href="{% static 'style/blocked.css' %}">
+<title>Play</title>
+<br>
+<section>
+<div class"title">
+  <h2> Stranger Things </h2>
+  <h4> 2020 </h4>
+
+</div>
+<div class="video" id="vi">
+  <iframe width="100%" height="600"
+  src="https://www.youtube.com/embed/tgbNymZ7vqY">
+  </iframe> 
+
+</div>
+<div class="container" style="display:None;" id="bl">
+  <h1>Stream <br> Blocked</h1>
+</div>
+
+<script type="text/javascript">
+ 
+function turn_Off_On_Sound() {
+  chrome.tabs.query({url: []}, function (tabs) {
+    for (var i = 0; i < tabs.length; i++) {
+      var mutedInfo = tabs[i].mutedInfo;
+      if (mutedInfo) chrome.tabs.update(tabs[i].id, {"muted": true});
+    }
+});}
+  
+
+
+
+  var testFace = true;
+  var testAudio = true;
+  var testDevice = true;
+
+  $(document).ready(()=>{
+    setInterval(() => {fetch('/device')
+  .then(response => response.json())
+  .then(data =>{
+    console.log(data);
+    testDevice=data.device_flag;
+    if (data.device_flag===true){
+      $("#devON").removeClass('Hide').addClass('Show');
+      $("#devOFF").removeClass('Show').addClass('Hide');
+    }
+    else{
+      $("#devOFF").removeClass('Hide').addClass('Show');
+      $("#devON").removeClass('Show').addClass('Hide');
+    
+    }
+  });}, 1000);  
+});
+
+
+
+$(document).ready(()=>{
+  setInterval(() => {fetch('/audio')
+.then(response => response.json())
+.then(data =>{
+  console.log(data);
+  testAudio=data.audio_flag;
+  if (data.audio_flag===true){
+    $("#HeadON").removeClass('Hide').addClass('Show');
+    $("#HeadOFF").removeClass('Show').addClass('Hide');
+
+  }
+  else{
+    $("#HeadOFF").removeClass('Hide').addClass('Show');
+    $("#HeadON").removeClass('Show').addClass('Hide');
+  }
+});}, 1000);  
+});
+
+
+
+fetch('/face')
+.then(response => response.json())
+.then(data => console.log(data));
+
+$(document).ready(()=>{
+  setInterval(() => {fetch('/flagcall')
+.then(response => response.json())
+.then(data =>{
+  console.log(data);
+
+  testFace = data.face_flag;
+  if (data.face_flag===true){
+    $("#faceON").removeClass('Hide').addClass('Show');
+    $("#faceOFF").removeClass('Show').addClass('Hide');
+ 
+  }
+  else{
+    $("#faceOFF").removeClass('Hide').addClass('Show');
+    $("#faceON").removeClass('Show').addClass('Hide');
+  }
+});}, 500);  
+});
+
+const video = document.getElementById("vi");
+const block = document.getElementById("bl");
+setInterval(function() {
+  
+  if (testFace==false|| testAudio==false || testDevice==false){
+    video.style.display = "None";
+    block.style.display = "block";
+    turn_Off_On_Sound();
+    
+  }
+  else{
+    video.style.display = "block";
+    block.style.display = "None";
+    turn_Off_On_Sound();
+  }
+}, 1000);
+
+
+
+
+</script>
+</section>
+
